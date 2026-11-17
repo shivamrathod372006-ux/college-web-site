@@ -1,101 +1,85 @@
 /*
- * =========================================================================
- * JSON vs XML Comparison:
- * =========================================================================
- * 1. Format & Syntax:
- *    - JSON (JavaScript Object Notation) uses lightweight key-value pairs
- *      and bracket-based notation ({}, []).
- *    - XML (eXtensible Markup Language) uses open and closing tags similar
- *      to HTML (<tag></tag>), making it more verbose.
+ * ======================================================================================
+ * COMPARISON: JSON vs XML
+ * ======================================================================================
+ * 1. Syntax & Verbosity:
+ *    - JSON (JavaScript Object Notation) uses lightweight key-value pairs and arrays.
+ *    - XML (eXtensible Markup Language) uses opening and closing tags (<tag></tag>),
+ *      making it much more verbose and heavier in payload size.
  *
  * 2. Data Types:
- *    - JSON supports native data types: strings, numbers, booleans, arrays,
- *      objects, and null.
- *    - XML treats all data as text/strings unless a strict external schema
- *      (XSD) is defined.
+ *    - JSON natively supports primitive types: String, Number, Boolean, Array, Object, null.
+ *    - XML is text-based and typeless; all values are strings unless validated against an XSD.
  *
  * 3. Parsing & Performance:
- *    - JSON is parsed natively in JavaScript using JSON.parse(), which is
- *      faster, less memory-intensive, and directly converts into JS objects.
- *    - XML requires an XML DOM parser (DOMParser / XMLHttpRequest) and
- *      complex DOM tree traversal, which is slower.
+ *    - JSON is natively parsed in JavaScript via JSON.parse(), making it significantly
+ *      faster and directly accessible as native JavaScript objects.
+ *    - XML requires an XML DOM parser (such as DOMParser) to navigate nodes, which is
+ *      slower and more complex to manipulate.
  *
- * 4. Readability & Usage:
- *    - JSON is compact and is the standard data interchange format for modern
- *      web applications, RESTful APIs, and SPAs.
- *    - XML is typically used in legacy enterprise applications, SOAP web
- *      services, and document-oriented configurations (e.g., SVG, Android layouts).
- * =========================================================================
+ * 4. Primary Use Cases:
+ *    - JSON is the modern industry standard for REST APIs, SPAs, and web client-server data.
+ *    - XML is widely used in legacy enterprise systems, SOAP services, SVG graphics,
+ *      and configuration files requiring strict structural schemas.
+ * ======================================================================================
  */
 
-// Courses data array (JSON objects)
-const courses = [
+// Course data array (JSON objects)
+const coursesData = [
     {
-        title: "B.Tech in Computer Science & Engineering",
-        code: "CSE-101",
+        name: "Computer Engineering",
         duration: "4 Years",
-        description: "Comprehensive curriculum covering data structures, algorithms, AI, and software engineering."
+        intake: "180 Seats",
+        description: "Focuses on computer hardware, software development, data structures, algorithms, and artificial intelligence."
     },
     {
-        title: "B.Tech in Electronics & Communication",
-        code: "ECE-102",
+        name: "Information Technology",
         duration: "4 Years",
-        description: "Focus on digital circuits, communication systems, signal processing, and embedded systems."
+        intake: "120 Seats",
+        description: "Covers cloud infrastructure, cybersecurity, enterprise networking, and full-stack web applications."
     },
     {
-        title: "B.Tech in Mechanical Engineering",
-        code: "ME-103",
+        name: "Mechanical Engineering",
         duration: "4 Years",
-        description: "Study of mechanics, thermodynamics, robotics, manufacturing processes, and design."
-    },
-    {
-        title: "Bachelor of Computer Applications (BCA)",
-        code: "BCA-104",
-        duration: "3 Years",
-        description: "Foundational training in database management, web development, and application programming."
+        intake: "120 Seats",
+        description: "Deals with design, thermal engineering, robotics, CAD/CAM manufacturing, and industrial automation."
     }
 ];
 
-// Function to dynamically render courses into the Content area
-function renderCourses() {
-    const container = document.getElementById("courses-container");
-    if (!container) return;
+// Function to inject course data into DOM only when Courses tab is clicked
+function loadCourses() {
+    const coursesContainer = document.getElementById("courses-list");
+    coursesContainer.innerHTML = ""; // Clear existing content before injecting
 
-    container.innerHTML = "";
-
-    courses.forEach(course => {
-        const card = document.createElement("div");
-        card.className = "course-card";
+    coursesData.forEach(course => {
+        const item = document.createElement("div");
+        item.className = "course-item";
 
         const title = document.createElement("h3");
-        title.textContent = course.title;
+        title.textContent = course.name;
 
-        const code = document.createElement("span");
-        code.className = "course-code";
-        code.textContent = course.code;
+        const meta = document.createElement("p");
+        meta.className = "course-meta";
+        meta.textContent = `Duration: ${course.duration} | Intake: ${course.intake}`;
 
-        const description = document.createElement("p");
-        description.textContent = course.description;
+        const desc = document.createElement("p");
+        desc.className = "course-desc";
+        desc.textContent = course.description;
 
-        const duration = document.createElement("p");
-        duration.className = "course-duration";
-        duration.textContent = "Duration: " + course.duration;
+        item.appendChild(title);
+        item.appendChild(meta);
+        item.appendChild(desc);
 
-        card.appendChild(title);
-        card.appendChild(code);
-        card.appendChild(description);
-        card.appendChild(duration);
-
-        container.appendChild(card);
+        coursesContainer.appendChild(item);
     });
 }
 
-// Navigation function that switches visible content without page reloads
-function navigateTo(targetId) {
-    const sections = document.querySelectorAll(".page-section");
+// Navigation function to switch visible sections without page reload
+function showSection(targetId) {
+    const sections = document.querySelectorAll(".content-section");
     const navLinks = document.querySelectorAll(".nav-link");
 
-    // Toggle active state for content sections
+    // Hide/show sections
     sections.forEach(section => {
         if (section.id === targetId) {
             section.classList.add("active");
@@ -104,69 +88,61 @@ function navigateTo(targetId) {
         }
     });
 
-    // Toggle active state for navigation links
+    // Update active nav link
     navLinks.forEach(link => {
-        if (link.getAttribute("data-page") === targetId) {
+        if (link.getAttribute("data-target") === targetId) {
             link.classList.add("active");
         } else {
             link.classList.remove("active");
         }
     });
+
+    // Inject data only when the "Courses" tab is clicked
+    if (targetId === "courses") {
+        loadCourses();
+    }
 }
 
-// Form validation function
-function validateForm(event) {
+// Client-side form validation
+function handleContactSubmit(event) {
     event.preventDefault();
 
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const messageInput = document.getElementById("message");
-    const feedback = document.getElementById("form-feedback");
-
-    const nameValue = nameInput.value.trim();
-    const emailValue = emailInput.value.trim();
-    const messageValue = messageInput.value.trim();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
 
     // Check for empty fields
-    if (nameValue === "" || emailValue === "" || messageValue === "") {
-        feedback.textContent = "Please fill in all fields.";
-        feedback.className = "form-feedback error";
+    if (name === "" || email === "" || message === "") {
+        alert("Please fill in all fields before submitting.");
         return;
     }
 
     // Check for '@' in email
-    if (!emailValue.includes("@")) {
-        feedback.textContent = "Please enter a valid email address containing '@'.";
-        feedback.className = "form-feedback error";
+    if (!email.includes("@")) {
+        alert("Please enter a valid email address containing '@'.");
         return;
     }
 
-    // Validation successful
-    feedback.textContent = "Your message has been sent successfully!";
-    feedback.className = "form-feedback success";
-
-    // Reset form fields
+    // Show success alert
+    alert("Thank you, " + name + "! Your message has been sent successfully.");
     document.getElementById("contact-form").reset();
 }
 
-// Event Listeners setup on DOMContentLoaded
+// Setup event listeners after DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Initial render of courses
-    renderCourses();
-
-    // 2. Navigation click listeners
+    // Navigation link click listeners
     const navLinks = document.querySelectorAll(".nav-link");
     navLinks.forEach(link => {
         link.addEventListener("click", event => {
             event.preventDefault();
-            const targetPage = link.getAttribute("data-page");
-            navigateTo(targetPage);
+            const target = link.getAttribute("data-target");
+            showSection(target);
         });
     });
 
-    // 3. Form validation submit listener
+    // Contact form submit listener
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
-        contactForm.addEventListener("submit", validateForm);
+        contactForm.addEventListener("submit", handleContactSubmit);
     }
 });
