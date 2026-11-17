@@ -1,148 +1,180 @@
 /*
- * ======================================================================================
- * COMPARISON: JSON vs XML
- * ======================================================================================
- * 1. Syntax & Verbosity:
- *    - JSON (JavaScript Object Notation) uses lightweight key-value pairs and arrays.
- *    - XML (eXtensible Markup Language) uses opening and closing tags (<tag></tag>),
- *      making it much more verbose and heavier in payload size.
- *
- * 2. Data Types:
- *    - JSON natively supports primitive types: String, Number, Boolean, Array, Object, null.
- *    - XML is text-based and typeless; all values are strings unless validated against an XSD.
- *
- * 3. Parsing & Performance:
- *    - JSON is natively parsed in JavaScript via JSON.parse(), making it significantly
- *      faster and directly accessible as native JavaScript objects.
- *    - XML requires an XML DOM parser (such as DOMParser) to navigate nodes, which is
- *      slower and more complex to manipulate.
- *
- * 4. Primary Use Cases:
- *    - JSON is the modern industry standard for REST APIs, SPAs, and web client-server data.
- *    - XML is widely used in legacy enterprise systems, SOAP services, SVG graphics,
- *      and configuration files requiring strict structural schemas.
- * ======================================================================================
+ * JSON vs XML Comparison:
+ * 1. Syntax: JSON uses lightweight key-value pairs; XML uses verbose tags (<tag></tag>).
+ * 2. Data Types: JSON natively supports strings, numbers, booleans, arrays, and objects; XML data is text strings only.
+ * 3. Parsing: JSON is parsed natively in JavaScript (JSON.parse()); XML requires an XML DOM parser and DOM traversal.
+ * 4. Usage: JSON is standard for modern RESTful APIs and SPAs; XML is used in SOAP and document markup.
  */
 
-// Course data array (JSON objects)
-const coursesData = [
-    {
-        name: "Computer Engineering",
-        duration: "4 Years",
-        intake: "180 Seats",
-        description: "Focuses on computer hardware, software development, data structures, algorithms, and artificial intelligence."
-    },
-    {
-        name: "Information Technology",
-        duration: "4 Years",
-        intake: "120 Seats",
-        description: "Covers cloud infrastructure, cybersecurity, enterprise networking, and full-stack web applications."
-    },
-    {
-        name: "Mechanical Engineering",
-        duration: "4 Years",
-        intake: "120 Seats",
-        description: "Deals with design, thermal engineering, robotics, CAD/CAM manufacturing, and industrial automation."
-    }
+// Courses data array (JSON objects)
+const courses = [
+    { name: "Computer Engineering", dept: "Computer", duration: "4 Years", intake: "180 Seats", desc: "Data structures, algorithms, cloud computing, and AI engineering." },
+    { name: "Information Technology", dept: "IT", duration: "4 Years", intake: "120 Seats", desc: "Cybersecurity, DevOps, web technologies, and database systems." },
+    { name: "Mechanical Engineering", dept: "Mechanical", duration: "4 Years", intake: "120 Seats", desc: "Robotics, CAD/CAM simulation, thermal systems, and automation." },
+    { name: "Civil Engineering", dept: "Civil", duration: "4 Years", intake: "60 Seats", desc: "Structural analysis, smart cities, and environmental design." }
 ];
 
-// Function to inject course data into DOM only when Courses tab is clicked
-function loadCourses() {
-    const coursesContainer = document.getElementById("courses-list");
-    coursesContainer.innerHTML = ""; // Clear existing content before injecting
+// Faculty data array (JSON objects)
+const faculty = [
+    { name: "Dr. Suresh Patil", dept: "Computer Engineering", role: "HOD & Professor", exp: "21 Years" },
+    { name: "Dr. Neha Kulkarni", dept: "Information Technology", role: "Associate Professor", exp: "15 Years" },
+    { name: "Prof. Rajesh Deshmukh", dept: "Mechanical Engineering", role: "Assistant Professor", exp: "12 Years" },
+    { name: "Prof. Priya Joshi", dept: "Civil Engineering", role: "Assistant Professor", exp: "9 Years" }
+];
 
-    coursesData.forEach(course => {
-        const item = document.createElement("div");
-        item.className = "course-item";
+let selectedDept = "all";
 
-        const title = document.createElement("h3");
-        title.textContent = course.name;
+// Dynamically render courses with search & department filter
+function renderCourses(searchTerm = "") {
+    const list = document.getElementById("courses-list");
+    list.innerHTML = "";
+    const term = searchTerm.toLowerCase().trim();
 
-        const meta = document.createElement("p");
-        meta.className = "course-meta";
-        meta.textContent = `Duration: ${course.duration} | Intake: ${course.intake}`;
+    const filtered = courses.filter(c => {
+        const matchesSearch = c.name.toLowerCase().includes(term) || c.desc.toLowerCase().includes(term);
+        const matchesDept = selectedDept === "all" || c.dept === selectedDept;
+        return matchesSearch && matchesDept;
+    });
 
-        const desc = document.createElement("p");
-        desc.className = "course-desc";
-        desc.textContent = course.description;
+    if (filtered.length === 0) {
+        list.innerHTML = "<p style='color: var(--text-muted);'>No matching courses found.</p>";
+        return;
+    }
 
-        item.appendChild(title);
-        item.appendChild(meta);
-        item.appendChild(desc);
-
-        coursesContainer.appendChild(item);
+    filtered.forEach(c => {
+        list.innerHTML += `
+            <div class="item-card">
+                <h3>${c.name}</h3>
+                <div class="item-meta">Department: ${c.dept} | Duration: ${c.duration} | Intake: ${c.intake}</div>
+                <p>${c.desc}</p>
+                <button class="btn-enquire" onclick="enquireCourse('${c.name}')">Enquire for this Course</button>
+            </div>`;
     });
 }
 
-// Navigation function to switch visible sections without page reload
+// Route to contact section with course selected
+function enquireCourse(courseName) {
+    showSection("contact");
+    const select = document.getElementById("course-select");
+    if (select) select.value = courseName;
+}
+
+// Dynamically render faculty
+function renderFaculty() {
+    const list = document.getElementById("faculty-list");
+    list.innerHTML = "";
+    faculty.forEach(f => {
+        list.innerHTML += `
+            <div class="item-card">
+                <h3>${f.name}</h3>
+                <div class="item-meta">${f.role} - ${f.dept}</div>
+                <p>Teaching & Research Experience: ${f.exp}</p>
+            </div>`;
+    });
+}
+
+// SPA Navigation without page reloads
 function showSection(targetId) {
-    const sections = document.querySelectorAll(".content-section");
-    const navLinks = document.querySelectorAll(".nav-link");
+    document.querySelectorAll(".section").forEach(s => s.classList.toggle("active", s.id === targetId));
+    document.querySelectorAll(".nav-link").forEach(l => l.classList.toggle("active", l.dataset.target === targetId));
 
-    // Hide/show sections
-    sections.forEach(section => {
-        if (section.id === targetId) {
-            section.classList.add("active");
-        } else {
-            section.classList.remove("active");
-        }
-    });
-
-    // Update active nav link
-    navLinks.forEach(link => {
-        if (link.getAttribute("data-target") === targetId) {
-            link.classList.add("active");
-        } else {
-            link.classList.remove("active");
-        }
-    });
-
-    // Inject data only when the "Courses" tab is clicked
     if (targetId === "courses") {
-        loadCourses();
+        document.getElementById("course-search").value = "";
+        selectedDept = "all";
+        document.querySelectorAll("#dept-pills .pill").forEach(p => p.classList.toggle("active", p.dataset.dept === "all"));
+        renderCourses();
+    } else if (targetId === "faculty") {
+        renderFaculty();
     }
 }
 
-// Client-side form validation
-function handleContactSubmit(event) {
-    event.preventDefault();
+// SGPA Calculator Function
+function calculateSGPA() {
+    const grades = document.querySelectorAll(".calc-grade");
+    const credits = document.querySelectorAll(".calc-credit");
+    let totalPoints = 0;
+    let totalCredits = 0;
 
+    for (let i = 0; i < grades.length; i++) {
+        const gp = parseFloat(grades[i].value);
+        const cr = parseFloat(credits[i].value) || 0;
+        totalPoints += (gp * cr);
+        totalCredits += cr;
+    }
+
+    const sgpa = (totalPoints / totalCredits).toFixed(2);
+    document.getElementById("sgpa-output").innerHTML = `Calculated SGPA: <strong>${sgpa} / 10.00</strong>`;
+}
+
+// Client-side Form Validation
+function validateForm(e) {
+    e.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const course = document.getElementById("course-select").value;
 
-    // Check for empty fields
-    if (name === "" || email === "" || message === "") {
-        alert("Please fill in all fields before submitting.");
-        return;
+    const nameErr = document.getElementById("name-error");
+    const emailErr = document.getElementById("email-error");
+    const phoneErr = document.getElementById("phone-error");
+    const successBanner = document.getElementById("form-success");
+
+    nameErr.textContent = name === "" ? "Full name is required." : "";
+    emailErr.textContent = !email.includes("@") ? "Please enter a valid email with '@'." : "";
+    phoneErr.textContent = !/^\d{10}$/.test(phone) ? "Enter a valid 10-digit mobile number." : "";
+
+    if (name && email.includes("@") && /^\d{10}$/.test(phone)) {
+        successBanner.style.display = "block";
+        successBanner.textContent = `Enquiry submitted for ${course}! Admissions cell will call on ${phone}.`;
+        alert(`Thank you ${name}! Your enquiry for ${course} has been submitted.`);
+        document.getElementById("enquiry-form").reset();
     }
-
-    // Check for '@' in email
-    if (!email.includes("@")) {
-        alert("Please enter a valid email address containing '@'.");
-        return;
-    }
-
-    // Show success alert
-    alert("Thank you, " + name + "! Your message has been sent successfully.");
-    document.getElementById("contact-form").reset();
 }
 
-// Setup event listeners after DOM is loaded
+// Setup Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
-    // Navigation link click listeners
-    const navLinks = document.querySelectorAll(".nav-link");
-    navLinks.forEach(link => {
-        link.addEventListener("click", event => {
-            event.preventDefault();
-            const target = link.getAttribute("data-target");
-            showSection(target);
+    // Navigation link clicks
+    document.querySelectorAll(".nav-link").forEach(link => {
+        link.addEventListener("click", e => {
+            e.preventDefault();
+            showSection(link.dataset.target);
         });
     });
 
-    // Contact form submit listener
-    const contactForm = document.getElementById("contact-form");
-    if (contactForm) {
-        contactForm.addEventListener("submit", handleContactSubmit);
+    // Real-time courses search
+    const searchInput = document.getElementById("course-search");
+    if (searchInput) {
+        searchInput.addEventListener("input", e => renderCourses(e.target.value));
     }
+
+    // Department Filter Pills
+    document.querySelectorAll("#dept-pills .pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+            document.querySelectorAll("#dept-pills .pill").forEach(p => p.classList.remove("active"));
+            pill.classList.add("active");
+            selectedDept = pill.dataset.dept;
+            renderCourses(searchInput.value);
+        });
+    });
+
+    // Dark Mode Toggle with persistence
+    const darkBtn = document.getElementById("dark-mode-btn");
+    if (localStorage.getItem("dyp_dark") === "true") {
+        document.body.classList.add("dark-mode");
+        darkBtn.textContent = "☀️ Light Mode";
+    }
+    darkBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        darkBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+        localStorage.setItem("dyp_dark", isDark);
+    });
+
+    // SGPA Button click
+    const calcBtn = document.getElementById("btn-calc");
+    if (calcBtn) calcBtn.addEventListener("click", calculateSGPA);
+
+    // Form submit listener
+    const enquiryForm = document.getElementById("enquiry-form");
+    if (enquiryForm) enquiryForm.addEventListener("submit", validateForm);
 });
