@@ -7,204 +7,311 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Top Utility Bar -->
-    <div class="top-bar">
-        <span>📍 Akurdi, Pune - 411044 | DTE Code: 6272 | NAAC 'A+' Accredited</span>
-        <span>📞 Helpline: +91 20 2765 3058</span>
+    <!-- Outer Frame Container (Photo 2 Matting Layout) -->
+    <div class="site-frame">
+        <div class="portal-window">
+            
+            <!-- Floating Navigation Bar (Photo 2 Navbar Style) -->
+            <header class="window-nav">
+                <div class="brand">
+                    <span class="brand-title">D.Y. Patil College of Engineering</span>
+                    <span class="brand-sub">Akurdi, Pune • Estd. 1984</span>
+                </div>
+                
+                <nav class="nav-pill" id="navbar">
+                    <a href="#home" class="nav-item active" data-target="home">Home</a>
+                    <a href="#courses" class="nav-item" data-target="courses">Courses</a>
+                    <a href="#faculty" class="nav-item" data-target="faculty">Faculty</a>
+                    <a href="#placements" class="nav-item" data-target="placements">Placements</a>
+                    <a href="#calculator" class="nav-item" data-target="calculator">SGPA Calc</a>
+                    <a href="#contact" class="nav-item" data-target="contact">Enquire</a>
+                </nav>
+
+                <div class="nav-actions">
+                    <button id="dark-mode-btn" class="pill-btn dark-toggle" type="button">🌙 Dark</button>
+                    <button class="pill-btn cta-btn" type="button" onclick="showSection('contact')">Apply &amp; Enroll</button>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Window Content -->
+            <main class="window-content">
+
+                <!-- ================= 1. HOME SECTION ================= -->
+                <section id="home" class="spa-section active">
+                    <!-- Hero Canvas (Photo 2 Layout: Big Editorial Typography + Campus Visual) -->
+                    <div class="hero-canvas">
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <span class="hero-chip">DTE Code: 6272 &bull; NAAC 'A+' Accredited</span>
+                            <h1 class="hero-title">
+                                Welcome To<br>
+                                <em>D.Y. Patil College</em>
+                            </h1>
+                            <p class="hero-tagline">Where Excellence Meets Opportunity &bull; Akurdi, Pune</p>
+                        </div>
+                    </div>
+
+                    <!-- Directions of Education Section (Photo 1 Aesthetic) -->
+                    <div class="directions-section">
+                        <div class="directions-header">
+                            <div class="title-with-badge">
+                                <span class="accent-badge-dot">✦</span>
+                                <h2>Directions<br>of education</h2>
+                            </div>
+                            <p class="directions-desc">
+                                At our institution, we offer an extensive array of engineering pathways and specialized disciplines, encompassing Artificial Intelligence, Computing, Robotics, and Advanced Design.
+                            </p>
+                        </div>
+
+                        <!-- 3 Iconic Squircle Colorful Cards (Photo 1 Palette) -->
+                        <div class="feature-cards-row">
+                            <div class="direction-card card-mint" onclick="showSection('courses')">
+                                <div class="card-top-row">
+                                    <div class="circle-arrow-btn">↗</div>
+                                    <span class="card-pill">Beginner</span>
+                                </div>
+                                <div class="card-info">
+                                    <h3>Computer Engineering</h3>
+                                    <p>4 years of dedicated study</p>
+                                </div>
+                            </div>
+
+                            <div class="direction-card card-peach" onclick="showSection('courses')">
+                                <div class="card-top-row">
+                                    <div class="circle-arrow-btn">↗</div>
+                                    <span class="card-pill">Specialized</span>
+                                </div>
+                                <div class="card-info">
+                                    <h3>AI &amp; Data Science</h3>
+                                    <p>4 years of dedicated study</p>
+                                </div>
+                            </div>
+
+                            <div class="direction-card card-sky" onclick="showSection('courses')">
+                                <div class="card-top-row">
+                                    <div class="circle-arrow-btn">↗</div>
+                                    <span class="card-pill">Advanced</span>
+                                </div>
+                                <div class="card-info">
+                                    <h3>Robotics &amp; Mechanical</h3>
+                                    <p>4 years of dedicated study</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campus Highlights & Stats Strip -->
+                    <div class="stats-strip">
+                        <div class="stat-cell">
+                            <strong>40+</strong>
+                            <span>Years Legacy</span>
+                        </div>
+                        <div class="stat-cell">
+                            <strong>₹45.5 LPA</strong>
+                            <span>Highest Package</span>
+                        </div>
+                        <div class="stat-cell">
+                            <strong>94%</strong>
+                            <span>Placement Rate</span>
+                        </div>
+                        <div class="stat-cell">
+                            <strong>500+</strong>
+                            <span>Recruiters</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 2. COURSES SECTION ================= -->
+                <section id="courses" class="spa-section">
+                    <div class="section-heading-box">
+                        <span class="sub-label">ACADEMIC DISCIPLINES</span>
+                        <h2>Explore Engineering Programs</h2>
+                        <p>Undergraduate (B.Tech) courses approved by AICTE and affiliated to Savitribai Phule Pune University.</p>
+                    </div>
+
+                    <div class="filter-bar">
+                        <input type="text" id="course-search" class="search-field" placeholder="🔍 Search courses by keyword or department...">
+                        <div class="dept-pills" id="dept-pills">
+                            <button class="filter-pill active" data-dept="all">All</button>
+                            <button class="filter-pill" data-dept="Computer">Computer</button>
+                            <button class="filter-pill" data-dept="AI">AI &amp; DS</button>
+                            <button class="filter-pill" data-dept="IT">IT</button>
+                            <button class="filter-pill" data-dept="Mechanical">Mechanical</button>
+                            <button class="filter-pill" data-dept="Civil">Civil</button>
+                        </div>
+                    </div>
+
+                    <!-- Courses Grid injected via JavaScript using Photo 1's pastel squircle cards -->
+                    <div id="courses-list" class="courses-dynamic-grid"></div>
+                </section>
+
+                <!-- ================= 3. FACULTY SECTION ================= -->
+                <section id="faculty" class="spa-section">
+                    <div class="section-heading-box">
+                        <span class="sub-label">DISTINGUISHED EDUCATORS</span>
+                        <h2>Meet Our Faculty</h2>
+                        <p>Distinguished professors and patent holders committed to nurturing engineering excellence.</p>
+                    </div>
+
+                    <div id="faculty-list" class="faculty-dynamic-grid"></div>
+                </section>
+
+                <!-- ================= 4. PLACEMENTS SECTION ================= -->
+                <section id="placements" class="spa-section">
+                    <div class="section-heading-box">
+                        <span class="sub-label">INDUSTRY COLLABORATION</span>
+                        <h2>Training &amp; Placements</h2>
+                        <p>Bridging academia with global enterprise opportunities for career breakthroughs.</p>
+                    </div>
+
+                    <div class="placement-cards-row">
+                        <div class="p-card card-mint">
+                            <span class="p-card-tag">International CTC</span>
+                            <h3>₹45.5 LPA</h3>
+                            <p>Highest Annual Package</p>
+                        </div>
+                        <div class="p-card card-peach">
+                            <span class="p-card-tag">Campus Average</span>
+                            <h3>₹8.5 LPA</h3>
+                            <p>Average Package</p>
+                        </div>
+                        <div class="p-card card-sky">
+                            <span class="p-card-tag">Graduating Batch</span>
+                            <h3>1,150+</h3>
+                            <p>Job Offers Received</p>
+                        </div>
+                    </div>
+
+                    <div class="recruiters-wrapper">
+                        <h3>Top Global Recruiters</h3>
+                        <div class="recruiters-grid">
+                            <span class="recruiter-chip">Microsoft</span>
+                            <span class="recruiter-chip">Amazon</span>
+                            <span class="recruiter-chip">Barclays</span>
+                            <span class="recruiter-chip">TCS Digital</span>
+                            <span class="recruiter-chip">Infosys</span>
+                            <span class="recruiter-chip">Tata Motors</span>
+                            <span class="recruiter-chip">Cognizant</span>
+                            <span class="recruiter-chip">Capgemini</span>
+                            <span class="recruiter-chip">L&amp;T Infotech</span>
+                            <span class="recruiter-chip">Adobe</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 5. SGPA CALCULATOR ================= -->
+                <section id="calculator" class="spa-section">
+                    <div class="section-heading-box">
+                        <span class="sub-label">STUDENT TOOL</span>
+                        <h2>Semester SGPA Calculator</h2>
+                        <p>Calculate your semester grade point average based on credits and letter grades.</p>
+                    </div>
+
+                    <div class="calculator-container card-sky">
+                        <div class="calc-row">
+                            <label>Subject 1 (Theory):</label>
+                            <select class="calc-grade">
+                                <option value="10">O (10)</option>
+                                <option value="9">A+ (9)</option>
+                                <option value="8">A (8)</option>
+                                <option value="7">B+ (7)</option>
+                                <option value="6">B (6)</option>
+                            </select>
+                            <input type="number" class="calc-credit" value="4" min="1" max="5">
+                        </div>
+                        <div class="calc-row">
+                            <label>Subject 2 (Theory):</label>
+                            <select class="calc-grade">
+                                <option value="9">A+ (9)</option>
+                                <option value="10">O (10)</option>
+                                <option value="8">A (8)</option>
+                                <option value="7">B+ (7)</option>
+                                <option value="6">B (6)</option>
+                            </select>
+                            <input type="number" class="calc-credit" value="4" min="1" max="5">
+                        </div>
+                        <div class="calc-row">
+                            <label>Subject 3 (Theory):</label>
+                            <select class="calc-grade">
+                                <option value="8">A (8)</option>
+                                <option value="10">O (10)</option>
+                                <option value="9">A+ (9)</option>
+                                <option value="7">B+ (7)</option>
+                                <option value="6">B (6)</option>
+                            </select>
+                            <input type="number" class="calc-credit" value="3" min="1" max="5">
+                        </div>
+                        <div class="calc-row">
+                            <label>Practical / Lab:</label>
+                            <select class="calc-grade">
+                                <option value="10">O (10)</option>
+                                <option value="9">A+ (9)</option>
+                                <option value="8">A (8)</option>
+                                <option value="7">B+ (7)</option>
+                                <option value="6">B (6)</option>
+                            </select>
+                            <input type="number" class="calc-credit" value="2" min="1" max="5">
+                        </div>
+                        <button type="button" class="btn-dark" id="btn-calc">Calculate SGPA</button>
+                        <div id="sgpa-output" class="calc-result-box">Calculated SGPA: --</div>
+                    </div>
+                </section>
+
+                <!-- ================= 6. CONTACT / ENQUIRY ================= -->
+                <section id="contact" class="spa-section">
+                    <div class="section-heading-box">
+                        <span class="sub-label">GET IN TOUCH</span>
+                        <h2>Admission Enquiry</h2>
+                        <p>Have questions regarding admission cut-offs, eligibility, or fees? Fill out the form below.</p>
+                    </div>
+
+                    <div class="enquiry-card-wrapper card-mint">
+                        <form id="enquiry-form" novalidate>
+                            <div class="input-block">
+                                <label for="name">Candidate Full Name *</label>
+                                <input type="text" id="name" placeholder="e.g. Rahul Patil">
+                                <span class="error-msg" id="name-error"></span>
+                            </div>
+
+                            <div class="input-grid-2">
+                                <div class="input-block">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" placeholder="e.g. rahul@example.com">
+                                    <span class="error-msg" id="email-error"></span>
+                                </div>
+                                <div class="input-block">
+                                    <label for="phone">10-Digit Mobile Number *</label>
+                                    <input type="tel" id="phone" placeholder="e.g. 9876543210" maxlength="10">
+                                    <span class="error-msg" id="phone-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="input-block">
+                                <label for="course-select">Interested Discipline</label>
+                                <select id="course-select">
+                                    <option value="Computer Engineering">Computer Engineering</option>
+                                    <option value="AI & Data Science">AI &amp; Data Science</option>
+                                    <option value="Information Technology">Information Technology</option>
+                                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                    <option value="Civil Engineering">Civil Engineering</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn-dark submit-full">Submit Admission Enquiry</button>
+                            <div id="form-success" class="success-banner"></div>
+                        </form>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Window Footer -->
+            <footer class="window-footer">
+                <p>&copy; 2026 D.Y. Patil College of Engineering, Akurdi, Pune - 411044. All Rights Reserved.</p>
+            </footer>
+
+        </div>
     </div>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="header-text">
-            <h1>D.Y. Patil College of Engineering</h1>
-            <p class="subtitle">Akurdi, Pune | Affiliated to SPPU, Approved by AICTE</p>
-        </div>
-    </header>
-
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="#home" class="nav-link active" data-target="home">Home</a>
-            <a href="#courses" class="nav-link" data-target="courses">Courses</a>
-            <a href="#faculty" class="nav-link" data-target="faculty">Faculty</a>
-            <a href="#placements" class="nav-link" data-target="placements">Placements</a>
-            <a href="#calculator" class="nav-link" data-target="calculator">SGPA Calc</a>
-            <a href="#contact" class="nav-link" data-target="contact">Contact</a>
-        </div>
-        <button id="dark-mode-btn" class="dark-btn" type="button">🌙 Dark Mode</button>
-    </nav>
-
-    <!-- Main Content Card -->
-    <main class="main-container">
-        <div class="card">
-            <!-- Home Section -->
-            <section id="home" class="section active">
-                <div class="hero">
-                    <h2>Welcome to DYPCOE, Akurdi</h2>
-                    <p>Established in 1984, imparting quality technical education, innovation, and leadership in engineering.</p>
-                </div>
-
-                <div class="stats-row">
-                    <div class="stat-box"><strong>40+</strong> Years Legacy</div>
-                    <div class="stat-box"><strong>₹45 LPA</strong> Highest CTC</div>
-                    <div class="stat-box"><strong>94%</strong> Placements</div>
-                    <div class="stat-box"><strong>500+</strong> Recruiters</div>
-                </div>
-
-                <div class="home-grid">
-                    <div class="box">
-                        <h3>📢 Latest Announcements</h3>
-                        <ul class="notices-list">
-                            <li><span class="badge">New</span> Admissions open for B.Tech &amp; M.Tech 2026-27.</li>
-                            <li><span class="badge">Exam</span> SPPU End-Semester Theory exam timetable published.</li>
-                            <li><span class="badge">Placement</span> Barclays &amp; TCS campus placement drives ongoing.</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <h3>🏫 Campus Facilities</h3>
-                        <p>✔ Central Digital Library with 100,000+ volumes &amp; journals</p>
-                        <p>✔ High-performance NVIDIA GPU AI workstation labs</p>
-                        <p>✔ On-campus sports complex, gymnasium &amp; hostels</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Courses Section -->
-            <section id="courses" class="section">
-                <h2>Engineering Courses</h2>
-                <div class="filter-controls">
-                    <input type="text" id="course-search" class="search-input" placeholder="🔍 Search course by name...">
-                    <div class="dept-pills" id="dept-pills">
-                        <button class="pill active" data-dept="all">All</button>
-                        <button class="pill" data-dept="Computer">Computer</button>
-                        <button class="pill" data-dept="IT">IT</button>
-                        <button class="pill" data-dept="Mechanical">Mechanical</button>
-                        <button class="pill" data-dept="Civil">Civil</button>
-                    </div>
-                </div>
-                <div id="courses-list" class="cards-grid"></div>
-            </section>
-
-            <!-- Faculty Section -->
-            <section id="faculty" class="section">
-                <h2>Distinguished Faculty</h2>
-                <div id="faculty-list" class="cards-grid"></div>
-            </section>
-
-            <!-- Placements Section -->
-            <section id="placements" class="section">
-                <h2>Training &amp; Placements</h2>
-                <p>Our dedicated placement cell ensures industry-readiness through rigorous technical and aptitude training.</p>
-                <div class="placement-stats">
-                    <div class="p-stat"><strong>₹45.5 LPA</strong><span>Highest CTC</span></div>
-                    <div class="p-stat"><strong>₹8.5 LPA</strong><span>Average Package</span></div>
-                    <div class="p-stat"><strong>1,150+</strong><span>Job Offers</span></div>
-                </div>
-                <h3 style="margin: 20px 0 10px; color: var(--primary);">Top Recruiting Partners</h3>
-                <div class="recruiters-tags">
-                    <span class="recruiter-tag">Microsoft</span>
-                    <span class="recruiter-tag">Amazon</span>
-                    <span class="recruiter-tag">Barclays</span>
-                    <span class="recruiter-tag">TCS</span>
-                    <span class="recruiter-tag">Infosys</span>
-                    <span class="recruiter-tag">Tata Motors</span>
-                    <span class="recruiter-tag">Cognizant</span>
-                    <span class="recruiter-tag">Capgemini</span>
-                </div>
-            </section>
-
-            <!-- SGPA Calculator Section -->
-            <section id="calculator" class="section">
-                <h2>Semester SGPA Calculator</h2>
-                <p style="margin-bottom: 14px; color: #64748b;">Calculate your semester grade point average based on credits and letter grades.</p>
-                <div class="calc-box">
-                    <div class="calc-row">
-                        <span>Subject 1 (Theory):</span>
-                        <select class="calc-grade">
-                            <option value="10">O (10)</option>
-                            <option value="9">A+ (9)</option>
-                            <option value="8">A (8)</option>
-                            <option value="7">B+ (7)</option>
-                            <option value="6">B (6)</option>
-                        </select>
-                        <input type="number" class="calc-credit" value="4" min="1" max="5">
-                    </div>
-                    <div class="calc-row">
-                        <span>Subject 2 (Theory):</span>
-                        <select class="calc-grade">
-                            <option value="9">A+ (9)</option>
-                            <option value="10">O (10)</option>
-                            <option value="8">A (8)</option>
-                            <option value="7">B+ (7)</option>
-                            <option value="6">B (6)</option>
-                        </select>
-                        <input type="number" class="calc-credit" value="4" min="1" max="5">
-                    </div>
-                    <div class="calc-row">
-                        <span>Subject 3 (Theory):</span>
-                        <select class="calc-grade">
-                            <option value="8">A (8)</option>
-                            <option value="10">O (10)</option>
-                            <option value="9">A+ (9)</option>
-                            <option value="7">B+ (7)</option>
-                            <option value="6">B (6)</option>
-                        </select>
-                        <input type="number" class="calc-credit" value="3" min="1" max="5">
-                    </div>
-                    <div class="calc-row">
-                        <span>Lab / Practical:</span>
-                        <select class="calc-grade">
-                            <option value="10">O (10)</option>
-                            <option value="9">A+ (9)</option>
-                            <option value="8">A (8)</option>
-                            <option value="7">B+ (7)</option>
-                            <option value="6">B (6)</option>
-                        </select>
-                        <input type="number" class="calc-credit" value="2" min="1" max="5">
-                    </div>
-                    <button type="button" class="btn-submit" id="btn-calc" style="margin-top: 14px;">Calculate SGPA</button>
-                    <div id="sgpa-output" class="calc-output">Calculated SGPA: --</div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section id="contact" class="section">
-                <h2>Admission Enquiry</h2>
-                <form id="enquiry-form" novalidate>
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" placeholder="Enter your full name">
-                        <span class="error-msg" id="name-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" placeholder="Enter your email">
-                        <span class="error-msg" id="email-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">10-Digit Mobile Number *</label>
-                        <input type="tel" id="phone" placeholder="Enter 10-digit number" maxlength="10">
-                        <span class="error-msg" id="phone-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="course-select">Select Course</label>
-                        <select id="course-select">
-                            <option value="Computer Engineering">Computer Engineering</option>
-                            <option value="Information Technology">Information Technology</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-submit">Submit Enquiry</button>
-                    <div id="form-success" class="form-success"></div>
-                </form>
-            </section>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2026 D.Y. Patil College of Engineering, Akurdi, Pune - 411044. All Rights Reserved.</p>
-    </footer>
 
     <script src="app.js"></script>
 </body>

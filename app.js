@@ -1,32 +1,85 @@
 /*
- * JSON vs XML Comparison:
- * 1. Syntax: JSON uses lightweight key-value pairs; XML uses verbose tags (<tag></tag>).
- * 2. Data Types: JSON natively supports strings, numbers, booleans, arrays, and objects; XML data is text strings only.
- * 3. Parsing: JSON is parsed natively in JavaScript (JSON.parse()); XML requires an XML DOM parser and DOM traversal.
- * 4. Usage: JSON is standard for modern RESTful APIs and SPAs; XML is used in SOAP and document markup.
+ * =========================================================================
+ * JSON vs XML COMPARISON:
+ * =========================================================================
+ * 1. Syntax & Verbosity:
+ *    - JSON (JavaScript Object Notation): Uses compact, lightweight key-value
+ *      pairs and bracket arrays ({}, []). Payload size is minimal.
+ *    - XML (eXtensible Markup Language): Uses opening and closing tags (<tag></tag>),
+ *      making it significantly more verbose and bandwidth-heavy.
+ *
+ * 2. Data Types:
+ *    - JSON natively supports String, Number, Boolean, Array, Object, and null.
+ *    - XML data is pure text/strings unless defined via strict schemas (XSD/DTD).
+ *
+ * 3. Parsing & Performance:
+ *    - JSON is parsed natively by JavaScript (JSON.parse()), executing orders of
+ *      magnitude faster and directly converting to usable JS objects.
+ *    - XML requires an XML DOM Parser and complex DOM tree traversal.
+ *
+ * 4. Usage:
+ *    - JSON is standard for modern RESTful APIs, Single Page Applications, and NoSQL.
+ *    - XML is typically used in legacy SOAP services and configuration documents (SVG, XHTML).
+ * =========================================================================
  */
 
 // Courses data array (JSON objects)
 const courses = [
-    { name: "Computer Engineering", dept: "Computer", duration: "4 Years", intake: "180 Seats", desc: "Data structures, algorithms, cloud computing, and AI engineering." },
-    { name: "Information Technology", dept: "IT", duration: "4 Years", intake: "120 Seats", desc: "Cybersecurity, DevOps, web technologies, and database systems." },
-    { name: "Mechanical Engineering", dept: "Mechanical", duration: "4 Years", intake: "120 Seats", desc: "Robotics, CAD/CAM simulation, thermal systems, and automation." },
-    { name: "Civil Engineering", dept: "Civil", duration: "4 Years", intake: "60 Seats", desc: "Structural analysis, smart cities, and environmental design." }
+    { 
+        name: "Computer Engineering", 
+        dept: "Computer", 
+        duration: "4 Years", 
+        intake: "180 Seats", 
+        desc: "Specialized study in data structures, algorithms, AI, cloud computing, and software engineering." 
+    },
+    { 
+        name: "AI & Data Science", 
+        dept: "AI", 
+        duration: "4 Years", 
+        intake: "120 Seats", 
+        desc: "Cutting-edge curriculum in neural networks, computer vision, Big Data analytics, and NLP." 
+    },
+    { 
+        name: "Information Technology", 
+        dept: "IT", 
+        duration: "4 Years", 
+        intake: "120 Seats", 
+        desc: "Cybersecurity, enterprise network systems, cloud infrastructure, and full-stack development." 
+    },
+    { 
+        name: "Mechanical Engineering", 
+        dept: "Mechanical", 
+        duration: "4 Years", 
+        intake: "120 Seats", 
+        desc: "Robotics, thermal systems, CAD/CAM simulation, automation, and modern manufacturing." 
+    },
+    { 
+        name: "Civil Engineering", 
+        dept: "Civil", 
+        duration: "4 Years", 
+        intake: "60 Seats", 
+        desc: "Structural analysis, geotechnical engineering, green construction, and smart city infrastructure." 
+    }
 ];
 
 // Faculty data array (JSON objects)
 const faculty = [
-    { name: "Dr. Suresh Patil", dept: "Computer Engineering", role: "HOD & Professor", exp: "21 Years" },
-    { name: "Dr. Neha Kulkarni", dept: "Information Technology", role: "Associate Professor", exp: "15 Years" },
-    { name: "Prof. Rajesh Deshmukh", dept: "Mechanical Engineering", role: "Assistant Professor", exp: "12 Years" },
-    { name: "Prof. Priya Joshi", dept: "Civil Engineering", role: "Assistant Professor", exp: "9 Years" }
+    { name: "Dr. Suresh Patil", dept: "Computer Engineering", role: "HOD & Professor", exp: "21 Years", initials: "SP" },
+    { name: "Dr. Neha Kulkarni", dept: "Information Technology", role: "Associate Professor", exp: "15 Years", initials: "NK" },
+    { name: "Prof. Rajesh Deshmukh", dept: "Mechanical Engineering", role: "Assistant Professor", exp: "12 Years", initials: "RD" },
+    { name: "Prof. Priya Joshi", dept: "Civil Engineering", role: "Assistant Professor", exp: "9 Years", initials: "PJ" }
 ];
+
+// Photo 1 Pastel Colors array for squircle cards
+const cardColorThemes = ["card-mint", "card-peach", "card-sky"];
 
 let selectedDept = "all";
 
-// Dynamically render courses with search & department filter
+// Dynamically render courses into Photo 1 squircle cards
 function renderCourses(searchTerm = "") {
     const list = document.getElementById("courses-list");
+    if (!list) return;
+
     list.innerHTML = "";
     const term = searchTerm.toLowerCase().trim();
 
@@ -37,51 +90,84 @@ function renderCourses(searchTerm = "") {
     });
 
     if (filtered.length === 0) {
-        list.innerHTML = "<p style='color: var(--text-muted);'>No matching courses found.</p>";
+        list.innerHTML = "<p style='color: var(--color-text-muted); font-size: 1rem;'>No matching courses found.</p>";
         return;
     }
 
-    filtered.forEach(c => {
-        list.innerHTML += `
-            <div class="item-card">
+    filtered.forEach((c, index) => {
+        const colorClass = cardColorThemes[index % cardColorThemes.length];
+        const card = document.createElement("div");
+        card.className = `course-item-card ${colorClass}`;
+
+        card.innerHTML = `
+            <div>
+                <div class="course-card-head">
+                    <div class="circle-arrow-btn">↗</div>
+                    <span class="card-pill">B.Tech • ${c.duration}</span>
+                </div>
                 <h3>${c.name}</h3>
-                <div class="item-meta">Department: ${c.dept} | Duration: ${c.duration} | Intake: ${c.intake}</div>
-                <p>${c.desc}</p>
-                <button class="btn-enquire" onclick="enquireCourse('${c.name}')">Enquire for this Course</button>
-            </div>`;
+                <p class="course-desc-text">${c.desc}</p>
+                <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; opacity: 0.9;">
+                    Intake: ${c.intake} | Dept: ${c.dept}
+                </div>
+            </div>
+            <button class="btn-card-action" onclick="enquireCourse('${c.name}')">
+                <span>Enquire Now</span> <span>→</span>
+            </button>
+        `;
+        list.appendChild(card);
     });
 }
 
-// Route to contact section with course selected
+// Route to contact section with course pre-selected
 function enquireCourse(courseName) {
     showSection("contact");
     const select = document.getElementById("course-select");
     if (select) select.value = courseName;
 }
 
-// Dynamically render faculty
+// Dynamically render faculty into Photo 1 squircle cards
 function renderFaculty() {
     const list = document.getElementById("faculty-list");
+    if (!list) return;
+
     list.innerHTML = "";
-    faculty.forEach(f => {
-        list.innerHTML += `
-            <div class="item-card">
-                <h3>${f.name}</h3>
-                <div class="item-meta">${f.role} - ${f.dept}</div>
-                <p>Teaching & Research Experience: ${f.exp}</p>
-            </div>`;
+    faculty.forEach((f, index) => {
+        const colorClass = cardColorThemes[index % cardColorThemes.length];
+        const card = document.createElement("div");
+        card.className = `faculty-squircle-card ${colorClass}`;
+
+        card.innerHTML = `
+            <div class="faculty-avatar-circle">${f.initials}</div>
+            <h3>${f.name}</h3>
+            <p class="faculty-role-title">${f.role}</p>
+            <p class="faculty-dept-label">${f.dept}</p>
+            <span class="faculty-experience-pill">Experience: ${f.exp}</span>
+        `;
+        list.appendChild(card);
     });
 }
 
 // SPA Navigation without page reloads
 function showSection(targetId) {
-    document.querySelectorAll(".section").forEach(s => s.classList.toggle("active", s.id === targetId));
-    document.querySelectorAll(".nav-link").forEach(l => l.classList.toggle("active", l.dataset.target === targetId));
+    // Switch visible section
+    document.querySelectorAll(".spa-section").forEach(s => s.classList.toggle("active", s.id === targetId));
+    
+    // Update active nav-item
+    document.querySelectorAll(".nav-item").forEach(l => l.classList.toggle("active", l.dataset.target === targetId));
 
+    // Scroll smoothly to top of window
+    const windowEl = document.querySelector(".portal-window");
+    if (windowEl) {
+        windowEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Trigger dynamic loading
     if (targetId === "courses") {
-        document.getElementById("course-search").value = "";
+        const searchInput = document.getElementById("course-search");
+        if (searchInput) searchInput.value = "";
         selectedDept = "all";
-        document.querySelectorAll("#dept-pills .pill").forEach(p => p.classList.toggle("active", p.dataset.dept === "all"));
+        document.querySelectorAll("#dept-pills .filter-pill").forEach(p => p.classList.toggle("active", p.dataset.dept === "all"));
         renderCourses();
     } else if (targetId === "faculty") {
         renderFaculty();
@@ -101,6 +187,8 @@ function calculateSGPA() {
         totalPoints += (gp * cr);
         totalCredits += cr;
     }
+
+    if (totalCredits === 0) return;
 
     const sgpa = (totalPoints / totalCredits).toFixed(2);
     document.getElementById("sgpa-output").innerHTML = `Calculated SGPA: <strong>${sgpa} / 10.00</strong>`;
@@ -125,16 +213,16 @@ function validateForm(e) {
 
     if (name && email.includes("@") && /^\d{10}$/.test(phone)) {
         successBanner.style.display = "block";
-        successBanner.textContent = `Enquiry submitted for ${course}! Admissions cell will call on ${phone}.`;
+        successBanner.innerHTML = `✅ Thank you, <strong>${name}</strong>! Your enquiry for <strong>${course}</strong> has been submitted. Our admissions team will contact you at ${phone}.`;
         alert(`Thank you ${name}! Your enquiry for ${course} has been submitted.`);
         document.getElementById("enquiry-form").reset();
     }
 }
 
-// Setup Event Listeners
+// Initialize on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
     // Navigation link clicks
-    document.querySelectorAll(".nav-link").forEach(link => {
+    document.querySelectorAll(".nav-item").forEach(link => {
         link.addEventListener("click", e => {
             e.preventDefault();
             showSection(link.dataset.target);
@@ -148,9 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Department Filter Pills
-    document.querySelectorAll("#dept-pills .pill").forEach(pill => {
+    document.querySelectorAll("#dept-pills .filter-pill").forEach(pill => {
         pill.addEventListener("click", () => {
-            document.querySelectorAll("#dept-pills .pill").forEach(p => p.classList.remove("active"));
+            document.querySelectorAll("#dept-pills .filter-pill").forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
             selectedDept = pill.dataset.dept;
             renderCourses(searchInput.value);
@@ -159,16 +247,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Dark Mode Toggle with persistence
     const darkBtn = document.getElementById("dark-mode-btn");
-    if (localStorage.getItem("dyp_dark") === "true") {
-        document.body.classList.add("dark-mode");
-        darkBtn.textContent = "☀️ Light Mode";
+    if (darkBtn) {
+        if (localStorage.getItem("dyp_dark") === "true") {
+            document.body.classList.add("dark-mode");
+            darkBtn.textContent = "☀️ Light";
+        }
+        darkBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            const isDark = document.body.classList.contains("dark-mode");
+            darkBtn.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+            localStorage.setItem("dyp_dark", isDark);
+        });
     }
-    darkBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        const isDark = document.body.classList.contains("dark-mode");
-        darkBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
-        localStorage.setItem("dyp_dark", isDark);
-    });
 
     // SGPA Button click
     const calcBtn = document.getElementById("btn-calc");
