@@ -23,7 +23,11 @@
  * =========================================================================
  */
 
-// Courses data array (JSON objects)
+// ==========================================
+// 1. DATA REPOSITORIES (JSON OBJECTS)
+// ==========================================
+
+// Courses data array
 const courses = [
     { 
         name: "Computer Engineering", 
@@ -62,10 +66,80 @@ const courses = [
     }
 ];
 
+// Department Detailed Profiles Repository (JSON Object)
+const departmentInfo = {
+    Computer: {
+        title: "Department of Computer Engineering",
+        established: "Estd. 1986 • NBA Accredited",
+        colorClass: "card-mint",
+        tagline: "Pioneering computational excellence, advanced software engineering, cloud distributed systems, and AI architecture.",
+        intake: "180 UG + 24 PG",
+        highestCtc: "₹45.5 LPA",
+        placementRate: "96%",
+        labsCount: "8 Dedicated Labs",
+        hod: "Dr. Suresh Patil — Ph.D. in Computer Science & Engg (21+ Years Exp). Specialized in Distributed Systems, Cloud Architecture, and Machine Intelligence.",
+        labs: "NVIDIA AI GPU Workstation Lab, Cloud Computing Virtual Sandbox, Advanced Software Engineering Lab, IoT & Smart Systems Lab.",
+        recruiters: ["Microsoft", "Barclays", "Adobe", "TCS Digital", "Infosys", "Cognizant", "Persistent Systems"]
+    },
+    AI: {
+        title: "Department of AI & Data Science",
+        established: "Estd. 2020 • Emerging Tech Center",
+        colorClass: "card-peach",
+        tagline: "Cultivating expertise in deep learning, neural networks, predictive big data models, and computer vision technologies.",
+        intake: "120 Seats",
+        highestCtc: "₹42.0 LPA",
+        placementRate: "95%",
+        labsCount: "6 AI Clusters",
+        hod: "Dr. Anand Joshi — Ph.D. (IIT Bombay, 18+ Years Exp). Dean R&D, researcher in Generative AI, Deep Neural Networks, and NLP.",
+        labs: "NVIDIA Deep Learning Supercomputing Lab, Big Data Analytics Cluster, Computer Vision & Robotics Center, NLP Research Hub.",
+        recruiters: ["Amazon", "Google Cloud", "NVIDIA", "Barclays", "Cognizant AI", "TCS R&D"]
+    },
+    IT: {
+        title: "Department of Information Technology",
+        established: "Estd. 1999 • NBA Accredited",
+        colorClass: "card-sky",
+        tagline: "Excellence in cybersecurity, full-stack enterprise cloud applications, DevOps pipelines, and distributed ledger systems.",
+        intake: "120 Seats",
+        highestCtc: "₹38.0 LPA",
+        placementRate: "94%",
+        labsCount: "7 Network Labs",
+        hod: "Dr. Neha Kulkarni — Ph.D. in Information Security (15+ Years Exp). Expert in Cryptography, Cyber Defense, and Blockchain Frameworks.",
+        labs: "Cyber Security & Ethical Hacking Lab, Blockchain & Distributed Ledger Lab, Enterprise Networking Lab, Cloud DevOps Sandbox.",
+        recruiters: ["Infosys", "Capgemini", "L&T Infotech", "Barclays", "TCS", "Accenture", "Veritas"]
+    },
+    Mechanical: {
+        title: "Department of Mechanical Engineering",
+        established: "Estd. 1984 • NBA Accredited",
+        colorClass: "card-peach",
+        tagline: "Transforming engineering design, industrial robotics, electric vehicle powertrains, and computer-aided manufacturing.",
+        intake: "120 UG + 18 PG",
+        highestCtc: "₹24.0 LPA",
+        placementRate: "90%",
+        labsCount: "10 Specialized Labs",
+        hod: "Prof. Rajesh Deshmukh — M.Tech, Ph.D. Pursuing (14+ Years Exp). Specialized in Mechatronics, Automotive Design, and Thermal Systems.",
+        labs: "Industrial Robotics & Automation Lab, CAD/CAM Simulation Center (ANSYS & CATIA), CNC Mechatronics Lab, BAJA Racing Workshop.",
+        recruiters: ["Tata Motors", "John Deere", "Siemens", "Thermax", "L&T Heavy Engg", "Mercedes-Benz"]
+    },
+    Civil: {
+        title: "Department of Civil Engineering",
+        established: "Estd. 1984 • NBA Accredited",
+        colorClass: "card-mint",
+        tagline: "Building resilient urban infrastructure, sustainable smart city design, geotechnical analysis, and earthquake engineering.",
+        intake: "60 Seats",
+        highestCtc: "₹18.0 LPA",
+        placementRate: "88%",
+        labsCount: "9 Testing Labs",
+        hod: "Dr. Priya Kulkarni — Ph.D. in Structural Dynamics (12+ Years Exp). Specialized in Earthquake Resistant Structures and Smart Concrete.",
+        labs: "Advanced Concrete Testing Lab, Geotechnical & Soil Mechanics Lab, Environmental Pollution Analysis Lab, Surveying & Total Station Lab.",
+        recruiters: ["L&T Construction", "Shapoorji Pallonji", "Godrej Properties", "Afcons", "Tata Projects"]
+    }
+};
+
 // Faculty data array (JSON objects)
 const faculty = [
     { name: "Dr. Suresh Patil", dept: "Computer Engineering", role: "HOD & Professor", exp: "21 Years", initials: "SP" },
     { name: "Dr. Neha Kulkarni", dept: "Information Technology", role: "Associate Professor", exp: "15 Years", initials: "NK" },
+    { name: "Dr. Anand Joshi", dept: "AI & Data Science", role: "Professor & Dean R&D", exp: "18 Years", initials: "AJ" },
     { name: "Prof. Rajesh Deshmukh", dept: "Mechanical Engineering", role: "Assistant Professor", exp: "12 Years", initials: "RD" },
     { name: "Prof. Priya Joshi", dept: "Civil Engineering", role: "Assistant Professor", exp: "9 Years", initials: "PJ" }
 ];
@@ -75,13 +149,135 @@ const cardColorThemes = ["card-mint", "card-peach", "card-sky"];
 
 let selectedDept = "all";
 
-// Dynamically render courses into Photo 1 squircle cards
+// ==========================================
+// 2. DEPARTMENT INFO RENDERING (NEW FEATURE)
+// ==========================================
+
+function renderDepartmentInfo(deptKey) {
+    const infoContainer = document.getElementById("department-info-container");
+    if (!infoContainer) return;
+
+    if (!deptKey || deptKey === "all" || !departmentInfo[deptKey]) {
+        infoContainer.innerHTML = "";
+        return;
+    }
+
+    const data = departmentInfo[deptKey];
+    const recruitersHtml = data.recruiters.map(r => `<span>${r}</span>`).join(" • ");
+
+    infoContainer.innerHTML = `
+        <div class="dept-info-card ${data.colorClass}">
+            <div class="dept-info-header">
+                <div>
+                    <span class="dept-established-badge">${data.established}</span>
+                    <h3>${data.title}</h3>
+                    <p class="dept-tagline">${data.tagline}</p>
+                </div>
+                <button class="dept-close-btn" onclick="clearDeptInfo()" title="Close details">✕</button>
+            </div>
+
+            <div class="dept-quick-stats">
+                <div class="dept-stat-pill">
+                    <strong>${data.intake}</strong>
+                    <span>Intake</span>
+                </div>
+                <div class="dept-stat-pill">
+                    <strong>${data.highestCtc}</strong>
+                    <span>Highest CTC</span>
+                </div>
+                <div class="dept-stat-pill">
+                    <strong>${data.placementRate}</strong>
+                    <span>Placement</span>
+                </div>
+                <div class="dept-stat-pill">
+                    <strong>${data.labsCount}</strong>
+                    <span>Facilities</span>
+                </div>
+            </div>
+
+            <div class="dept-grid-details">
+                <div class="dept-col">
+                    <h4>👨‍🏫 Head of Department (HOD)</h4>
+                    <p>${data.hod}</p>
+                </div>
+                <div class="dept-col">
+                    <h4>🔬 Advanced Laboratory Facilities</h4>
+                    <p>${data.labs}</p>
+                </div>
+            </div>
+
+            <div class="dept-recruiters-row">
+                <strong>Key Recruiters:</strong>
+                <div>${recruitersHtml}</div>
+            </div>
+
+            <div class="dept-action-bar" style="margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn-card-action" onclick="enquireCourse('${data.title}')">
+                    <span>Enquire for this Department</span> <span>→</span>
+                </button>
+                <button class="btn-card-secondary" onclick="clearDeptInfo()">
+                    <span>← Back to All Courses</span>
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// Clear Department Info and reset to All
+function clearDeptInfo() {
+    selectDepartment("all");
+}
+
+// Open department directly from Home page cards
+function openDepartmentFromHome(deptKey) {
+    showSection("courses");
+    selectDepartment(deptKey);
+}
+
+// Select Department, show info, and filter courses
+function selectDepartment(deptKey) {
+    selectedDept = deptKey;
+
+    // Update active pill state
+    document.querySelectorAll("#dept-pills .filter-pill").forEach(p => {
+        p.classList.toggle("active", p.dataset.dept === deptKey);
+    });
+
+    // Render department info box
+    renderDepartmentInfo(deptKey);
+
+    // Filter courses list
+    const searchInput = document.getElementById("course-search");
+    const query = searchInput ? searchInput.value : "";
+    renderCourses(query);
+
+    // Scroll smoothly to department info if selected
+    if (deptKey !== "all") {
+        setTimeout(() => {
+            const container = document.getElementById("department-info-container");
+            if (container) {
+                container.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }, 60);
+    }
+}
+
+// ==========================================
+// 3. COURSES RENDERING
+// ==========================================
+
 function renderCourses(searchTerm = "") {
     const list = document.getElementById("courses-list");
     if (!list) return;
 
     list.innerHTML = "";
     const term = searchTerm.toLowerCase().trim();
+
+    // When a department is selected, its comprehensive profile is already shown above!
+    // We remove the duplicate course card below it.
+    if (selectedDept !== "all" && !term) {
+        return;
+    }
 
     const filtered = courses.filter(c => {
         const matchesSearch = c.name.toLowerCase().includes(term) || c.desc.toLowerCase().includes(term);
@@ -98,11 +294,16 @@ function renderCourses(searchTerm = "") {
         const colorClass = cardColorThemes[index % cardColorThemes.length];
         const card = document.createElement("div");
         card.className = `course-item-card ${colorClass}`;
+        card.style.cursor = "pointer";
+        card.setAttribute("title", `Click to view ${c.name} department info`);
+        
+        // Clicking on this course card opens that department's detailed info!
+        card.onclick = () => selectDepartment(c.dept);
 
         card.innerHTML = `
             <div>
                 <div class="course-card-head">
-                    <div class="circle-arrow-btn">↗</div>
+                    <div class="circle-arrow-btn" title="Click to view ${c.dept} department info">↗</div>
                     <span class="card-pill">B.Tech • ${c.duration}</span>
                 </div>
                 <h3>${c.name}</h3>
@@ -111,9 +312,11 @@ function renderCourses(searchTerm = "") {
                     Intake: ${c.intake} | Dept: ${c.dept}
                 </div>
             </div>
-            <button class="btn-card-action" onclick="enquireCourse('${c.name}')">
-                <span>Enquire Now</span> <span>→</span>
-            </button>
+            <div class="card-btn-group">
+                <button class="btn-card-action" onclick="event.stopPropagation(); enquireCourse('${c.name}')">
+                    <span>Enquire Now</span> <span>→</span>
+                </button>
+            </div>
         `;
         list.appendChild(card);
     });
@@ -126,7 +329,10 @@ function enquireCourse(courseName) {
     if (select) select.value = courseName;
 }
 
-// Dynamically render faculty into Photo 1 squircle cards
+// ==========================================
+// 4. FACULTY RENDERING
+// ==========================================
+
 function renderFaculty() {
     const list = document.getElementById("faculty-list");
     if (!list) return;
@@ -148,7 +354,10 @@ function renderFaculty() {
     });
 }
 
-// SPA Navigation without page reloads
+// ==========================================
+// 5. SPA NAVIGATION
+// ==========================================
+
 function showSection(targetId) {
     // Switch visible section
     document.querySelectorAll(".spa-section").forEach(s => s.classList.toggle("active", s.id === targetId));
@@ -166,15 +375,17 @@ function showSection(targetId) {
     if (targetId === "courses") {
         const searchInput = document.getElementById("course-search");
         if (searchInput) searchInput.value = "";
-        selectedDept = "all";
-        document.querySelectorAll("#dept-pills .filter-pill").forEach(p => p.classList.toggle("active", p.dataset.dept === "all"));
-        renderCourses();
+        // Render current department state
+        selectDepartment(selectedDept);
     } else if (targetId === "faculty") {
         renderFaculty();
     }
 }
 
-// SGPA Calculator Function
+// ==========================================
+// 6. SGPA CALCULATOR
+// ==========================================
+
 function calculateSGPA() {
     const grades = document.querySelectorAll(".calc-grade");
     const credits = document.querySelectorAll(".calc-credit");
@@ -194,7 +405,10 @@ function calculateSGPA() {
     document.getElementById("sgpa-output").innerHTML = `Calculated SGPA: <strong>${sgpa} / 10.00</strong>`;
 }
 
-// Client-side Form Validation
+// ==========================================
+// 7. CLIENT-SIDE FORM VALIDATION
+// ==========================================
+
 function validateForm(e) {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
@@ -219,7 +433,10 @@ function validateForm(e) {
     }
 }
 
-// Initialize on DOMContentLoaded
+// ==========================================
+// 8. EVENT LISTENERS INITIALIZATION
+// ==========================================
+
 document.addEventListener("DOMContentLoaded", () => {
     // Navigation link clicks
     document.querySelectorAll(".nav-item").forEach(link => {
@@ -235,13 +452,10 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.addEventListener("input", e => renderCourses(e.target.value));
     }
 
-    // Department Filter Pills
+    // Department Filter Pills click
     document.querySelectorAll("#dept-pills .filter-pill").forEach(pill => {
         pill.addEventListener("click", () => {
-            document.querySelectorAll("#dept-pills .filter-pill").forEach(p => p.classList.remove("active"));
-            pill.classList.add("active");
-            selectedDept = pill.dataset.dept;
-            renderCourses(searchInput.value);
+            selectDepartment(pill.dataset.dept);
         });
     });
 

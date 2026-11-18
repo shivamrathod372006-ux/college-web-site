@@ -414,6 +414,146 @@ body.dark-mode .cta-btn {
     opacity: 0.85;
 }
 
+/* ================= MODERN NOTICES SECTION ================= */
+.modern-notices-section {
+    margin-top: 26px;
+    margin-bottom: 28px;
+}
+
+.notices-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.notices-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.live-pulse-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    animation: livePulse 1.8s infinite;
+}
+
+@keyframes livePulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+.notices-title-group h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-text-body);
+    letter-spacing: -0.3px;
+}
+
+.notices-subtitle {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+/* 3-Column Notice Grid matching Photo 1 */
+.notices-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 18px;
+}
+
+.notice-card {
+    border-radius: 22px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 185px;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.notice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.notice-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.notice-date-badge {
+    font-size: 0.76rem;
+    font-weight: 700;
+    opacity: 0.85;
+}
+
+.notice-cat-pill {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid currentColor;
+}
+
+.notice-card h4 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.notice-card p {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    opacity: 0.9;
+    margin-bottom: 14px;
+    flex: 1;
+}
+
+.notice-arrow-link {
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.65);
+    color: #121316;
+    transition: var(--transition);
+}
+
+.notice-arrow-link:hover {
+    background: #ffffff;
+    transform: translateX(3px);
+}
+
 /* Stats Strip */
 .stats-strip {
     display: grid;
@@ -520,6 +660,166 @@ body.dark-mode .cta-btn {
 
 body.dark-mode .filter-pill.active {
     color: #121316;
+}
+
+/* ================= DEPARTMENT DETAILED INFO CARD ================= */
+.dept-info-container {
+    margin-bottom: 28px;
+}
+
+.dept-info-card {
+    border-radius: var(--radius-squircle);
+    padding: 30px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+    position: relative;
+    animation: fadeInSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dept-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 16px;
+}
+
+.dept-established-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid currentColor;
+    margin-bottom: 8px;
+}
+
+.dept-info-card h3 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+
+.dept-tagline {
+    font-size: 0.96rem;
+    opacity: 0.9;
+    max-width: 720px;
+    line-height: 1.5;
+}
+
+.dept-close-btn {
+    background: rgba(0, 0, 0, 0.08);
+    color: currentColor;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.15rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.dept-close-btn:hover {
+    background: rgba(0, 0, 0, 0.18);
+    transform: scale(1.1);
+}
+
+.dept-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.dept-stat-pill {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 12px 14px;
+    border-radius: 18px;
+    font-size: 0.84rem;
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
+
+.dept-stat-pill strong {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.dept-grid-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.45);
+    padding: 22px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dept-col h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dept-col p {
+    font-size: 0.91rem;
+    line-height: 1.55;
+    opacity: 0.95;
+}
+
+.dept-recruiters-row {
+    font-size: 0.9rem;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.btn-card-secondary {
+    background-color: rgba(255, 255, 255, 0.65);
+    color: #121316;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn-card-secondary:hover {
+    background-color: #ffffff;
+    transform: scale(1.04);
+}
+
+.circle-arrow-btn {
+    cursor: pointer;
 }
 
 /* Dynamic Courses Grid with Photo 1 Squircle Cards */

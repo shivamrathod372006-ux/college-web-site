@@ -51,50 +51,96 @@
                         </div>
                     </div>
 
-                    <!-- Directions of Education Section (Photo 1 Aesthetic) -->
+                    <!-- Why Choose DYPCOE / Pillars of Excellence Section -->
                     <div class="directions-section">
                         <div class="directions-header">
                             <div class="title-with-badge">
                                 <span class="accent-badge-dot">✦</span>
-                                <h2>Directions<br>of education</h2>
+                                <h2>Why Choose<br>DYPCOE?</h2>
                             </div>
                             <p class="directions-desc">
-                                At our institution, we offer an extensive array of engineering pathways and specialized disciplines, encompassing Artificial Intelligence, Computing, Robotics, and Advanced Design.
+                                Accredited by NAAC with 'A+' Grade and NBA. Delivering world-class technical education, industry-driven innovation, and premier career pathways in Pune since 1984.
                             </p>
                         </div>
 
-                        <!-- 3 Iconic Squircle Colorful Cards (Photo 1 Palette) -->
+                        <!-- 3 Iconic Squircle Colorful Cards (Career, Programs, Student Tools) -->
                         <div class="feature-cards-row">
-                            <div class="direction-card card-mint" onclick="showSection('courses')">
+                            <div class="direction-card card-mint" onclick="showSection('placements')" title="Click to view Placements & Recruitment">
                                 <div class="card-top-row">
                                     <div class="circle-arrow-btn">↗</div>
-                                    <span class="card-pill">Beginner</span>
+                                    <span class="card-pill">94% Placed</span>
                                 </div>
                                 <div class="card-info">
-                                    <h3>Computer Engineering</h3>
-                                    <p>4 years of dedicated study</p>
+                                    <h3>Career &amp; Placements</h3>
+                                    <p>Highest CTC: ₹45.5 LPA &bull; 1,150+ Offers</p>
                                 </div>
                             </div>
 
-                            <div class="direction-card card-peach" onclick="showSection('courses')">
+                            <div class="direction-card card-peach" onclick="showSection('courses')" title="Click to explore Academic Programs & Courses">
                                 <div class="card-top-row">
                                     <div class="circle-arrow-btn">↗</div>
-                                    <span class="card-pill">Specialized</span>
+                                    <span class="card-pill">NBA Approved</span>
                                 </div>
                                 <div class="card-info">
-                                    <h3>AI &amp; Data Science</h3>
-                                    <p>4 years of dedicated study</p>
+                                    <h3>Academic Programs</h3>
+                                    <p>UG &amp; PG Engineering Disciplines</p>
                                 </div>
                             </div>
 
-                            <div class="direction-card card-sky" onclick="showSection('courses')">
+                            <div class="direction-card card-sky" onclick="showSection('calculator')" title="Click to use Student SGPA Calculator">
                                 <div class="card-top-row">
                                     <div class="circle-arrow-btn">↗</div>
-                                    <span class="card-pill">Advanced</span>
+                                    <span class="card-pill">Interactive</span>
                                 </div>
                                 <div class="card-info">
-                                    <h3>Robotics &amp; Mechanical</h3>
-                                    <p>4 years of dedicated study</p>
+                                    <h3>Student Tools &amp; Calc</h3>
+                                    <p>Semester SGPA Calculator &amp; Portal</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campus Announcements & Notice Board (Modern Interactive Cards) -->
+                        <div class="modern-notices-section">
+                            <div class="notices-header-row">
+                                <div class="notices-title-group">
+                                    <span class="live-pulse-dot"></span>
+                                    <h3>Campus Notice Board &amp; Circulars</h3>
+                                </div>
+                                <span class="notices-subtitle">Official Updates &bull; SPPU Pune</span>
+                            </div>
+
+                            <div class="notices-cards-grid">
+                                <!-- Notice 1: Admissions -->
+                                <div class="notice-card card-peach">
+                                    <div class="notice-card-top">
+                                        <span class="notice-date-badge">📅 Nov 18, 2026</span>
+                                        <span class="notice-cat-pill">Admissions</span>
+                                    </div>
+                                    <h4>B.Tech &amp; M.Tech Admissions Open</h4>
+                                    <p>Centralized Admission Process (CAP) &amp; Institute level seat applications for 2026-27 now active.</p>
+                                    <span class="notice-arrow-link" onclick="showSection('contact')">Apply Now ↗</span>
+                                </div>
+
+                                <!-- Notice 2: Examinations -->
+                                <div class="notice-card card-sky">
+                                    <div class="notice-card-top">
+                                        <span class="notice-date-badge">📅 Nov 15, 2026</span>
+                                        <span class="notice-cat-pill">Examinations</span>
+                                    </div>
+                                    <h4>SPPU Theory Exam Timetable</h4>
+                                    <p>End-semester theory examination schedule for SE, TE &amp; BE regular/backlog released by University.</p>
+                                    <span class="notice-arrow-link">View Circular ↗</span>
+                                </div>
+
+                                <!-- Notice 3: Placements -->
+                                <div class="notice-card card-mint">
+                                    <div class="notice-card-top">
+                                        <span class="notice-date-badge">📅 Nov 12, 2026</span>
+                                        <span class="notice-cat-pill">Placements</span>
+                                    </div>
+                                    <h4>Microsoft &amp; Barclays Campus Drive</h4>
+                                    <p>Recruitment drives for graduating Computer, AI &amp; IT engineering students currently underway.</p>
+                                    <span class="notice-arrow-link" onclick="showSection('placements')">Explore Placements ↗</span>
                                 </div>
                             </div>
                         </div>
@@ -140,6 +186,9 @@
                             <button class="filter-pill" data-dept="Civil">Civil</button>
                         </div>
                     </div>
+
+                    <!-- Department Detailed Information Panel (Shows on click) -->
+                    <div id="department-info-container" class="dept-info-container"></div>
 
                     <!-- Courses Grid injected via JavaScript using Photo 1's pastel squircle cards -->
                     <div id="courses-list" class="courses-dynamic-grid"></div>
